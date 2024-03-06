@@ -1,4 +1,9 @@
-from Help import display_help
+from interactions.Help import display_help
+import os
+
+
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 
 def encounter(player, enemy):
@@ -15,7 +20,6 @@ def encounter(player, enemy):
             if player.xp >= player.level_up_xp:
                 player.level_up()
             break
-
         player_input = input(">")
         if player_input == 'a':
             player.attack(enemy)
@@ -34,9 +38,10 @@ def encounter(player, enemy):
             display_help()
         elif player_input == 's':
             player.show_stats()
+        elif player_input == 'c':
+            clear_screen()
         elif player_input == 'w':
             enemy.roll_action(player)
-        elif player_input == '':
-            continue
         else:
-            print("Type '?' to display commands")
+            print("Unrecognized command.")
+            print("Type '?' to display commands.")
