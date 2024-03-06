@@ -1,5 +1,5 @@
-from Player import Player
-from Enemy import Enemy
+from models.Player import Player
+from models.Enemy import Enemy
 
 
 def display_help():
