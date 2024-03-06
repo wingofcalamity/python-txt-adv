@@ -46,7 +46,7 @@ class Player:
         min_heal = str(self.min_heal).rjust(3)
         max_heal = str(self.max_heal).rjust(3)
         hit_chance = str(self.hit_chance).rjust(3)
-        crit_chance = str(self.crit_chance).rjust(3)
+        crit_chance = str(self.crit_chance).rjust(5)
         level = str(self.level).rjust(3)
         xp = str(self.xp).rjust(5)
         left = str(self.level_up_xp).ljust(5)
@@ -55,7 +55,7 @@ class Player:
         print(f"| XP:         {xp}/{left} |")
         print("+-------------------------+")
         print(f"| Hit chance:        {hit_chance}% |")
-        print(f"| Crit chance:       {crit_chance}% |")
+        print(f"| Crit chance:     {crit_chance}% |")
         print(f"| Damage:       {min_damage} ~ {max_damage} |")
         print(f"| Healing:      {min_heal} ~ {max_heal} |")
         print("+-------------------------+")
@@ -71,7 +71,7 @@ class Player:
         self.max_damage += 2
         self.min_heal += 1
         self.max_heal += 2
-        self.crit_chance += 2
+        self.crit_chance += .5
         # resetting xp, increasing cost
         self.xp = 0
         self.level_up_xp = round(self.level_up_xp * 1.5)
