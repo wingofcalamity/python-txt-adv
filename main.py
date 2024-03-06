@@ -40,8 +40,8 @@ def encounter(player, enemy):
 
 def main():
     me = Player()
-    glorb = Enemy("Glorb", 1, 3)
-    glorb2 = Enemy("Blarb, Destroyer of the Universe", 100, 3)
+    glorb = Enemy("Glorb", 5, 3)
+    glorb2 = Enemy("Blarb, Destroyer of the Universe", 25, 3)
     encounter(me, glorb)
     encounter(me, glorb2)
 
