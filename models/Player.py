@@ -16,10 +16,10 @@ class Player:
         self.level_up_xp = 30
 
     def attack(self, enemy):
-        if random.randint(0, 100) < self.hit_chance:
+        if random.randint(1, 100) < self.hit_chance:
             damage = random.randint(self.min_damage, self.max_damage)
             if enemy.health >= 0:
-                if random.randint(0, 100) <= self.crit_chance:
+                if random.randint(1, 100) <= self.crit_chance:
                     print("Critical hit!")
                     crit_damage = self.max_damage * 2.5
                     damage = round(crit_damage)
