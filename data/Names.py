@@ -1,14 +1,14 @@
 names = [
     "Glorb",
     "FooBar",
-    "placeholder"
+    "placeholder",
     "Amongus",
     "Alex",
     "Wii U Browser",
     "& Knuckles",
     "Skibidi Toilet",
     "Herta",
-    "Texas Instruments TI-30 ECO RS"
+    "Texas Instruments TI-30 ECO RS",
     "Google Stadia",
     "Flipflop",
     "PeePeePooPoo",
@@ -21,5 +21,6 @@ names = [
     "Sbeve",
     "Steve",
     "Freddy Fazbear",
-    "Dante from the Devil May Cry™ Series"
+    "Dante from the Devil May Cry™ Series",
+    "Optimum Pride"
 ]
