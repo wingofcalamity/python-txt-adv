@@ -8,6 +8,7 @@ class Enemy:
         self.hit_chance = 66
         self.name = name
         self.max_damage = max_damage
+        self.xp_drop = round((max_damage * health) / 5)
 
     def roll_action(self, player):
         if random.randint(0, 100) < self.hit_chance:

@@ -21,29 +21,41 @@ def encounter(player, enemy):
         elif player_input == 'h':
             player.heal(enemy)
         elif player_input == 'i':
-            print("+------------------+")
-            print(f"| Enemy HP:  {str(enemy.health).rjust(5)} |")
-            print(f"| Player HP: {str(player.health).rjust(5)} |")
-            print("+------------------+")
+            enemy_cur_hp = str(enemy.health).rjust(5)
+            enemy_max_hp = str(enemy.max_health).ljust(5)
+            player_cur_hp = str(player.health).rjust(5)
+            player_max_hp = str(player.max_health).ljust(5)
+            print("+-------------------------+")
+            print(f"| Enemy HP:   {enemy_cur_hp}/{enemy_max_hp} |")
+            print(f"| Player HP:  {player_cur_hp}/{player_max_hp} |")
+            print("+-------------------------+")
         elif player_input == '?':
             display_help()
         elif player_input == 's':
             player.show_stats()
         elif player_input == 'w':
             enemy.roll_action(player)
+        elif player_input == '':
+            continue
         else:
             print("Type '?' to display commands")
 
         if enemy.health <= 0:
+            print(f"Defeated {enemy.name}!")
+            if player.xp <= 99999:
+                player.xp += enemy.xp_drop
+            print(f"You gained {enemy.xp_drop} XP!")
+            if player.xp >= player.level_up_xp:
+                player.level_up()
             break
 
 
 def main():
     me = Player()
-    glorb = Enemy("Glorb", 5, 3)
     glorb2 = Enemy("Blarb, Destroyer of the Universe", 25, 3)
-    encounter(me, glorb)
-    encounter(me, glorb2)
+    while True:
+        glorb = Enemy("Glorb", 15, 3)
+        encounter(me, glorb)
 
 
 if __name__ == "__main__":
