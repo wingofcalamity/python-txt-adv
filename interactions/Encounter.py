@@ -7,7 +7,8 @@ def clear_screen():
 
 
 def encounter(player, enemy):
-    print(f"Encountered {enemy.name} ({enemy.health})!")
+    print(f"Encountered {enemy.name}!")
+    print(f"HP: {enemy.health} ATK: {enemy.max_damage}")
     while True:
         if player.health <= 0:
             print("Game over!")

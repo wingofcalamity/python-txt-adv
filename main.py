@@ -1,5 +1,4 @@
 from random import randint
-
 from models.Player import Player
 from models.Enemy import Enemy
 from interactions.Encounter import encounter
@@ -15,11 +14,11 @@ def create_enemy(player):
 
 def main():
     me = Player()
-    me.load()
+    me.autoload()
     while True:
         enemy = create_enemy(me)
         encounter(me, enemy)
-        me.save()
+        me.autosave()
 
 
 if __name__ == "__main__":

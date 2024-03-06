@@ -16,6 +16,20 @@ class Player:
         self.level_up_xp = 30
         self.defeated_enemies = 0
 
+    def reset(self):
+        self.level = 1
+        self.health = 20
+        self.max_health = 20
+        self.min_damage = 3
+        self.max_damage = 6
+        self.min_heal = 6
+        self.max_heal = 12
+        self.hit_chance = 100
+        self.crit_chance = 5
+        self.xp = 0
+        self.level_up_xp = 30
+        self.defeated_enemies = 0
+
     def attack(self, enemy):
         hit_roll = random.randint(1, 100)
         if hit_roll <= self.hit_chance:
@@ -36,6 +50,7 @@ class Player:
                     print(f"You gained {enemy.xp_drop} XP!")
                     if self.xp >= self.level_up_xp:
                         self.level_up()
+                    print()
         else:
             print(f"You missed! {hit_roll}")
             enemy.roll_action(self)
@@ -66,7 +81,7 @@ class Player:
         print("+------Player stats:------+")
         print(f"| Level:         {level}      |")
         print(f"| XP:         {xp}/{left} |")
-        print(f"| XP:         {wins} |")
+        print(f"| Wins:             {wins} |")
         print("+-------------------------+")
         print(f"| Hit chance:        {hit_chance}% |")
         print(f"| Crit chance:     {crit_chance}% |")
@@ -120,13 +135,16 @@ class Player:
         self.level_up_xp = int(stat_list[10])
         self.defeated_enemies = int(stat_list[11])
 
-    def save(self):
+    def autosave(self):
         with open("./data/save", 'w') as file:
             for item in self.stat_dump():
                 file.write("%s\n" % item)
 
-    def load(self):
-        with open("./data/save", 'r') as file:
-            loaded_list = [line.strip() for line in file]
-            self.set_stats(loaded_list)
-
+    def autoload(self):
+        try:
+            with open("./data/save", 'r') as file:
+                loaded_list = [line.strip() for line in file]
+                if len(loaded_list) == 12:
+                    self.set_stats(loaded_list)
+        except Exception as e:
+            print(f"Failed to load Data: {e}")
