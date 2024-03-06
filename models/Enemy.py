@@ -11,7 +11,7 @@ class Enemy:
         self.xp_drop = round((max_damage * health) / 5)
 
     def roll_action(self, player):
-        if random.randint(1, 100) < self.hit_chance:
+        if random.randint(1, 100) <= self.hit_chance:
             damage = random.randint(1, self.max_damage)
             print(f"{self.name} hit you for {damage} damage!")
             player.health -= damage
