@@ -22,5 +22,6 @@ names = [
     "Steve",
     "Freddy Fazbear",
     "Dante from the Devil May Cry™ Series",
-    "Optimum Pride"
+    "Optimum Pride",
+    "Subaru Impreza WRX STi Coupe Type R Version V"
 ]
