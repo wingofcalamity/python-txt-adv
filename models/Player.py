@@ -6,17 +6,19 @@ class Player:
         self.level = 1
         self.health = 20
         self.max_health = 20
-        self.min_damage = 1
-        self.max_damage = 5
-        self.min_heal = 5
-        self.max_heal = 15
-        self.hit_chance = 95
+        self.min_damage = 3
+        self.max_damage = 6
+        self.min_heal = 6
+        self.max_heal = 12
+        self.hit_chance = 100
         self.crit_chance = 5
         self.xp = 0
         self.level_up_xp = 30
+        self.defeated_enemies = 0
 
     def attack(self, enemy):
-        if random.randint(1, 100) <= self.hit_chance:
+        hit_roll = random.randint(1, 100)
+        if hit_roll <= self.hit_chance:
             damage = random.randint(self.min_damage, self.max_damage)
             if enemy.health >= 0:
                 if random.randint(1, 100) <= self.crit_chance:
@@ -27,6 +29,16 @@ class Player:
                 print(f"Hit {enemy.name} for {damage} damage!")
                 if enemy.health > 0:
                     enemy.roll_action(self)
+                else:
+                    self.defeated_enemies += 1
+                    print(f"Defeated {enemy.name}!")
+                    self.xp += enemy.xp_drop
+                    print(f"You gained {enemy.xp_drop} XP!")
+                    if self.xp >= self.level_up_xp:
+                        self.level_up()
+        else:
+            print(f"You missed! {hit_roll}")
+            enemy.roll_action(self)
 
     def heal(self, enemy):
         heal_rate = random.randint(self.min_heal, self.max_heal)
@@ -50,9 +62,11 @@ class Player:
         level = str(self.level).rjust(3)
         xp = str(self.xp).rjust(5)
         left = str(self.level_up_xp).ljust(5)
+        wins = str(self.defeated_enemies).rjust(5)
         print("+------Player stats:------+")
         print(f"| Level:         {level}      |")
         print(f"| XP:         {xp}/{left} |")
+        print(f"| XP:         {wins} |")
         print("+-------------------------+")
         print(f"| Hit chance:        {hit_chance}% |")
         print(f"| Crit chance:     {crit_chance}% |")
@@ -75,3 +89,44 @@ class Player:
         # resetting xp, increasing cost
         self.xp = 0
         self.level_up_xp = round(self.level_up_xp * 1.5)
+
+    def stat_dump(self):
+        return [
+            self.level,
+            self.health,
+            self.max_health,
+            self.min_damage,
+            self.max_damage,
+            self.min_heal,
+            self.max_heal,
+            self.hit_chance,
+            self.crit_chance,
+            self.xp,
+            self.level_up_xp,
+            self.defeated_enemies
+        ]
+
+    def set_stats(self, stat_list):
+        self.level = int(stat_list[0])
+        self.health = int(stat_list[1])
+        self.max_health = int(stat_list[2])
+        self.min_damage = int(stat_list[3])
+        self.max_damage = int(stat_list[4])
+        self.min_heal = int(stat_list[5])
+        self.max_heal = int(stat_list[6])
+        self.hit_chance = int(stat_list[7])
+        self.crit_chance = float(stat_list[8])
+        self.xp = int(stat_list[9])
+        self.level_up_xp = int(stat_list[10])
+        self.defeated_enemies = int(stat_list[11])
+
+    def save(self):
+        with open("./data/save", 'w') as file:
+            for item in self.stat_dump():
+                file.write("%s\n" % item)
+
+    def load(self):
+        with open("./data/save", 'r') as file:
+            loaded_list = [line.strip() for line in file]
+            self.set_stats(loaded_list)
+

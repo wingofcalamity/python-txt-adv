@@ -7,20 +7,16 @@ def clear_screen():
 
 
 def encounter(player, enemy):
-    print(f"Encountered {enemy.name}!")
+    print(f"Encountered {enemy.name} ({enemy.health})!")
     while True:
         if player.health <= 0:
             print("Game over!")
             quit()
         if enemy.health <= 0:
-            print(f"Defeated {enemy.name}!")
-            if player.xp <= 99999:
-                player.xp += enemy.xp_drop
-            print(f"You gained {enemy.xp_drop} XP!")
-            if player.xp >= player.level_up_xp:
-                player.level_up()
             break
-        player_input = input(">")
+
+        player_input = input('>')
+
         if player_input == 'a':
             player.attack(enemy)
         elif player_input == 'h':
