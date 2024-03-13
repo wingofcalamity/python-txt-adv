@@ -23,5 +23,8 @@ names = [
     "Freddy Fazbear",
     "Dante from the Devil May Cry™ Series",
     "Optimum Pride",
-    "Subaru Impreza WRX STi Coupe Type R Version V"
+    "Subaru Impreza WRX STi Coupe Type R Version V",
+    "Mercedes GLA",
+    "Your mom",
+    "BMW M3 GTR"
 ]

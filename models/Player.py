@@ -16,6 +16,9 @@ class Player:
         self.level_up_xp = 30
         self.defeated_enemies = 0
 
+        self.mana = 10
+        self.max_mana = 10
+
     def reset(self):
         self.level = 1
         self.health = 20
@@ -57,15 +60,32 @@ class Player:
 
     def heal(self, enemy):
         heal_rate = random.randint(self.min_heal, self.max_heal)
-        if self.health == self.max_health:
-            print("Your HP are full.")
-        elif self.health + heal_rate > self.max_health:
-            print(f"Healed yourself for {self.max_health - self.health} HP")
-            self.health = self.max_health
+        if self.mana == 0:
+            print("Not enough mana")
+            return
         else:
-            print(f"Healed yourself for {heal_rate} HP")
-            self.health += heal_rate
-        enemy.roll_action(self)
+            self.mana -= 1
+            if self.health == self.max_health:
+                print("Your HP are full.")
+            elif self.health + heal_rate > self.max_health:
+                print(f"Healed yourself for {self.max_health - self.health} HP")
+                self.health = self.max_health
+            else:
+                print(f"Healed yourself for {heal_rate} HP")
+                self.health += heal_rate
+            enemy.roll_action(self)
+
+    def rest(self, enemy):
+        if self.mana == self.max_mana:
+            print("Mana already full")
+        else:
+            self.mana += 1
+        enemy.roll_action()
+
+    def magic_attack(self, enemy):
+        self.mana -= 1
+        print("Magic not yet implemented :)")
+
 
     def show_stats(self):
         min_damage = str(self.min_damage).rjust(3)
@@ -101,6 +121,8 @@ class Player:
         self.min_heal += 1
         self.max_heal += 2
         self.crit_chance += .5
+
+        self.max_mana += 3
         # resetting xp, increasing cost
         self.xp = 0
         self.level_up_xp = round(self.level_up_xp * 1.5)
